@@ -24,6 +24,7 @@ n_estimators = 20 #This is the number of trees in the forest
 
 
 #Mention your experiment details here
+mlflow.autolog() #This line enables automatic logging of parameters, metrics, and models for supported libraries like scikit-learn, TensorFlow, and PyTorch. It simplifies the tracking process by automatically capturing relevant information during model training and evaluation.
 mlflow.set_experiment("Test") #or we can do the same inside mlflow.start_run(experiment_id="Test") and this both can create a new experiment if it doesn't exist.
 
 # MLflow Configuration
@@ -33,10 +34,10 @@ with mlflow.start_run():
     y_pred = rf.predict(x_test) #This line makes predictions on the test data
     accuracy = accuracy_score(y_test, y_pred) #This line calculates the accuracy of the model
    
-    mlflow.log_metric("accuracy", accuracy)
+    # mlflow.log_metric("accuracy", accuracy)
 
-    mlflow.log_param("max_depth", max_depth)
-    mlflow.log_param("n_estimators", n_estimators)
+    # mlflow.log_param("max_depth", max_depth)
+    # mlflow.log_param("n_estimators", n_estimators)
 
  # Creating a confusion matrix plot
     cm = confusion_matrix(y_test, y_pred)
@@ -50,7 +51,7 @@ with mlflow.start_run():
     plt.savefig("Confusion-matrix.png")
 
     # log artifacts using mlflow
-    mlflow.log_artifact("Confusion-matrix.png")
+    # mlflow.log_artifact("Confusion-matrix.png")
     mlflow.log_artifact(__file__)
 
 
@@ -58,7 +59,7 @@ with mlflow.start_run():
     mlflow.set_tags({"Author": "Rajesh", "Project": "Wine Quality Prediction"})
 
     # Log the model
-    mlflow.sklearn.log_model(rf, name="Sklearn_RandomForest")
+    # mlflow.sklearn.log_model(rf, name="Sklearn_RandomForest")
 
     print(f"Accuracy: {accuracy}")
 
